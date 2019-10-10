@@ -1,5 +1,7 @@
 package cse360assign2;
 
+import java.util.ArrayList;
+
 /**
  * The AddingMachine class allows AddingMachine objects to add, subtract, 
  * retrieve, print, and clear the total.
@@ -12,6 +14,8 @@ package cse360assign2;
 public class AddingMachine {
 
 	private int total;
+	private ArrayList<Character> operationList;
+	private ArrayList<Integer> operandList;
 	
 	 /**
 	  * Initializes a new AddingMachine object which is represented by an
@@ -19,6 +23,9 @@ public class AddingMachine {
 	  */
 	public AddingMachine () {
 		total = 0;  // not needed - included for clarity
+		operationList = new ArrayList<Character>();
+		operandList = new ArrayList<Integer>();
+		operandList.add(total);
 	}
 	
 	/**
@@ -26,7 +33,7 @@ public class AddingMachine {
 	 * @return
 	 */
 	public int getTotal () {
-		return 0;
+		return total;
 	}
 	
 	/**
@@ -34,7 +41,9 @@ public class AddingMachine {
 	 * @param value Value to be added to the total
 	 */
 	public void add (int value) {
-		
+		total += value;
+		operationList.add('+');
+		operandList.add(value);
 	}
 	
 	/**
@@ -42,20 +51,35 @@ public class AddingMachine {
 	 * @param value Value to be subtracted to the total
 	 */
 	public void subtract (int value) {
-		
+		total -= value;
+		operationList.add('-');
+		operandList.add(value);
 	}
 		
 	/**
 	 * Returns the history of operations of the AddingMachine object
 	 */
 	public String toString () {
-		return "";
+		String history = "";
+		int operandIndex = 0;
+		
+		while(operandIndex < operandList.size()) {
+			history += Integer.toString(operandList.get(operandIndex));
+			
+			if(operandIndex < operandList.size() - 1) {
+				history += " " + operationList.get(operandIndex) + " ";
+			}
+			
+			operandIndex++;
+		}
+			
+		return history;
 	}
 
 	/**
 	 * Sets the current total to zero 
 	 */
 	public void clear() {
-	
+		total = 0;
 	}
 }
